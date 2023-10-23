@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Owner {
     private String name;
     private String birthday;
@@ -10,24 +12,24 @@ public class Owner {
     }
 
     public String getName() {
-        return name;
-    }
+            return name;
+        }
 
     public void setName(String name) {
-        this.name = name;
-    }
+            this.name = name;
+        }
 
     public String getBirthday() {
-        return birthday;
-    }
+            return birthday;
+        }
 
     public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
+            this.birthday = birthday;
+        }
 
     public String getResponsibilityDegree() {
-        return responsibilityDegree;
-    }
+            return responsibilityDegree;
+        }
 
     public void setResponsibilityDegree(String responsibilityDegree) {
         this.responsibilityDegree = responsibilityDegree;

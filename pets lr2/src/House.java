@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class House {
     private String address;
     private String phoneNumber;

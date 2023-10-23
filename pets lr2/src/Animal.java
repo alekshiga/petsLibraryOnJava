@@ -1,8 +1,10 @@
+import java.util.Scanner;
+
 public class Animal {
     private String name;
-    private String weight;
     private String kind;
     private String sex;
+    private String weight;
 
     public Animal(String name, String kind, String sex, String weight) {
         this.name = name;

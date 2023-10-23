@@ -1,20 +1,12 @@
+import java.util.Scanner;
+
 public class Pet {
-    private Owner owner;
     private Animal animal;
-    private House house;
+    private Residence residence;
 
-    public Pet(Owner owner, Animal animal, House house) {
-        this.owner = owner;
+    public Pet(Animal animal, Residence residence) {
         this.animal = animal;
-        this.house = house;
-    }
-
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+        this.residence = residence;
     }
 
     public Animal getAnimal() {
@@ -25,21 +17,20 @@ public class Pet {
         this.animal = animal;
     }
 
-    public House getHouse() {
-        return house;
+    public Residence getResidence() {
+        return this.residence;
     }
 
-    public void setHouse(House house) {
-        this.house = house;
+    public void setResidence(Residence residence) {
+        this.residence = residence;
     }
 
     @Override
     public String toString() {
         return "Питомец{" +
                 "имя: " + animal.getName() +
-                ", хозяин: " + owner.getName() +
-                ", дом: " + house.getAddress() +
+                ", хозяин: " + residence.getWhoLiving().getName() +
+                ", дом: " + residence.getWhereLiving().getAddress() +
                 '}';
     }
-
 }
