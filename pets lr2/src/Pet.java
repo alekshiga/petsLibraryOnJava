@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Pet {
     private Animal animal;
     private Residence residence;

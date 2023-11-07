@@ -1,17 +1,15 @@
-import java.util.Scanner;
+public abstract class Animal {
+    public String name;
+    public String sex;
+    public String weight;
 
-public class Animal {
-    private String name;
-    private String kind;
-    private String sex;
-    private String weight;
-
-    public Animal(String name, String kind, String sex, String weight) {
+    public Animal(String name, String sex, String weight) {
         this.name = name;
         this.weight = weight;
-        this.kind = kind;
         this.sex = sex;
     }
+
+    public abstract String sound();
 
     public String getName() {
         return name;
@@ -29,13 +27,7 @@ public class Animal {
         this.weight = weight;
     }
 
-    public String getKind() {
-        return kind;
-    }
-
-    public void setKind(String kind) {
-        this.kind = kind;
-    }
+    public abstract String getKind();
 
     public String getSex() {
         return sex;
@@ -45,13 +37,80 @@ public class Animal {
         this.sex = sex;
     }
 
-    @Override
-    public String toString() {
-        return "Животное{" +
-                "имя: " + name +
-                ", вид: " + kind +
-                ", пол: " + sex +
-                ", вес: " + weight +
-                '}';
+    public abstract String toString();
+
+    public static class Dog extends Animal {
+
+        public Dog(String name, String sex, String weight) {
+            super(name, sex, weight);
+        }
+
+        @Override
+        public String sound() {
+            return "Bark!";
+        }
+
+        @Override
+        public String getKind() {
+            return "dog";
+        }
+
+        @Override
+        public String toString() {
+            return "Собака{" +
+                    "имя: " + name + ", " +
+                    "пол: " + sex + ", " +
+                    "вес: " + weight + '}';
+        }
+    }
+
+    public static class Cat extends Animal {
+
+        public Cat(String name, String sex, String weight) {
+            super(name, sex, weight);
+        }
+
+        @Override
+        public String sound() {
+            return "Meow!";
+        }
+
+        @Override
+        public String getKind() {
+            return "cat";
+        }
+
+        @Override
+        public String toString() {
+            return "Кот{" +
+                    "имя: " + name + ", " +
+                    "пол: " + sex + ", " +
+                    "вес: " + weight + '}';
+        }
+    }
+
+    public static class Turtle extends Animal {
+
+        public Turtle(String name, String sex, String weight) {
+            super(name, sex, weight);
+        }
+
+        @Override
+        public String sound() {
+            return "...";
+        }
+
+        @Override
+        public String getKind() {
+            return "turtle";
+        }
+
+        @Override
+        public String toString() {
+                return "Черепаха{" +
+                    "имя: " + name + ", " +
+                    "пол: " + sex + ", " +
+                    "вес: " + weight + '}';
+        }
     }
 }

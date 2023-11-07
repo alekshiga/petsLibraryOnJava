@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -10,30 +8,79 @@ public class Main {
     public static final List<Residence> residences = new ArrayList<>();
     public static final List<Pet> pets = new ArrayList<>();
 
-    public static Animal createAnimal() {
+    public static boolean flatOrHouse(Pet pet) {
+        if (pet.getResidence().getWhereLiving().getFlatNumber() != 0) {
+            return true;
+        } else if (pet.getResidence().getWhereLiving().getFlatNumber() == 0) {
+            return false;
+        }
+        else {
+            throw new RuntimeException("Вы не должны были оказаться тут");
+        }
+    }
+
+    public static Animal.Dog createDog() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Вы собираетесь добавить животное в список бездомных животных");
+        System.out.println("Вы собираетесь добавить собаку в список бездомных животных");
         System.out.print("Введите кличку: ");
         String name = scan.nextLine();
-        System.out.print("Укажите вид: ");
-        String kind = scan.nextLine();
         System.out.print("Укажите пол: ");
         String sex = scan.nextLine();
         System.out.print("Укажите вес: ");
         String weight = scan.nextLine();
-        return new Animal(name, kind, sex, weight);
+        return new Animal.Dog(name, sex, weight);
     }
 
-    public static House createHouse() {
+    public static Animal.Cat createCat() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Вы собираетесь добавить дом в список мест жительства");
+        System.out.println("Вы собираетесь добавить кота в список бездомных животных");
+        System.out.print("Введите кличку: ");
+        String name = scan.nextLine();
+        System.out.print("Укажите пол: ");
+        String sex = scan.nextLine();
+        System.out.print("Укажите вес: ");
+        String weight = scan.nextLine();
+        return new Animal.Cat(name, sex, weight);
+    }
+
+    public static House.Flat createFlat() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Вы собираетесь добавить квартиру в список мест жительства");
         System.out.print("Введите адрес: ");
         String adress = scan.nextLine();
+        System.out.print("Введите номер квартиры: ");
+        String flatNumber = scan.nextLine();
         System.out.print("Укажите номер телефона: ");
         String phoneNumber = scan.nextLine();
         System.out.print("Укажите кол-во проживающих там детей: ");
         String howManyKidsLiving = scan.nextLine();
-        return new House(adress, phoneNumber, howManyKidsLiving);
+        System.out.print("Введите 1, если соседи злые, 0, если соседи добрые: ");
+        String areNeighborsAngry = scan.nextLine();
+        boolean areNeighborsAngryToBoolean;
+        if (areNeighborsAngry.equals("0")) {
+            areNeighborsAngryToBoolean = false;
+        }
+        else if (areNeighborsAngry.equals("1")) {
+            areNeighborsAngryToBoolean = true;
+        } else {
+            throw new RuntimeException("Вы оказались тут, т.к. ввели некорректные данные");
+        }
+        int intFlatNumber = Integer.parseInt(flatNumber);
+        int intKidsCount = Integer.parseInt(howManyKidsLiving);
+        return new House.Flat(adress, intFlatNumber, phoneNumber, intKidsCount, areNeighborsAngryToBoolean);
+    }
+
+    public static House.PrivateHouse createPrivateHouse() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Вы собираетесь добавить частный дом в список мест жительства");
+        System.out.print("Введите адрес: ");
+        String adress = scan.nextLine();
+        System.out.print("Введите номер телефона: ");
+        String phoneNumber = scan.nextLine();
+        System.out.print("Укажите кол-во проживающих там детей: ");
+        String howManyKidsLiving = scan.nextLine();
+        int intKidsCount = Integer.parseInt(howManyKidsLiving);
+        return new House.PrivateHouse(adress, phoneNumber, intKidsCount);
     }
 
     public static Owner createOwner() {
@@ -58,42 +105,31 @@ public class Main {
         }
     }
 
-    static Animal testAnimal = new Animal("Жора", "собака", "м", "8");
-    static House testHouse = new House("Северо-западная 105", "+79831778095", "2");
-    static Owner testOwner = new Owner("Тимофей", "19.12.2004", "2");
-    static House houseWeMovingTo = new House("Главная 61", "+77777777777", "0");
-
     public static void main(String[] args) {
-        animals.add(testAnimal);
-        houses.add(testHouse);
-        owners.add(testOwner);
 
-        animals.add(createAnimal());
+        animals.add(createDog());
         owners.add(createOwner());
-        houses.add(createHouse());
+        houses.add(createFlat());
 
-        residences.add(new Residence(houses.get(1), owners.get(1)));
         residences.add(new Residence(houses.get(0), owners.get(0)));
-        pets.add(new Pet(animals.get(1), residences.get(1)));
         pets.add(new Pet(animals.get(0), residences.get(0)));
 
         getInfoAboutAllPets();
 
-        animals.add(createAnimal());
+        animals.add(createCat());
 
-        /*now there are one extra animal,
-        so let one person own more than one animal*/
+        pets.add(new Pet(animals.get(1), residences.get(0)));
 
-        pets.add(new Pet(animals.get(2), residences.get(0)));
-
-        /*now changing one of animal's owner*/
-
-        pets.get(0).setResidence(residences.get(1));
-
-        /*owner can move and his house will change too*/
-
-        residences.get(1).setWhereLiving(houseWeMovingTo);
-
-        getInfoAboutAllPets();
+        System.out.print("Теперь по адресу " + pets.get(1).getResidence().getWhereLiving().getAddress());
+        if (flatOrHouse(pets.get(1))) {
+            System.out.println(", квартира " + pets.get(1).getResidence().getWhereLiving().getFlatNumber());
+        }
+        System.out.println("соседям мешают спать постоянные ");
+        for (final Pet pet : pets) {
+            if (pet.getResidence().getWhereLiving().getAddress() ==
+                    pets.get(1).getResidence().getWhereLiving().getAddress()) {
+                System.out.println(pet.getAnimal().sound());
+            }
+        }
     }
 }
