@@ -27,10 +27,9 @@ public class Pet {
 
     @Override
     public String toString() {
-        return "Питомец{" +
-                "имя: " + animal.getName() +
-                ", хозяин: " + residence.getWhoLiving().getName() +
-                ", дом: " + residence.getWhereLiving().getAddress() +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append("Питомец{").append("имя: ").append(animal.getName()).append(", хозяин: ").
+                append(residence.getWhoLiving().getName()).append(", дом: ").append(residence.getWhereLiving().getAddress()).append('}');
+        return builder.toString();
     }
 }
