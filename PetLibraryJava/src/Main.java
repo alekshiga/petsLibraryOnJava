@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,6 +10,8 @@ public class Main {
     public static final List<Owner> owners = new ArrayList<>();
     public static final List<Residence> residences = new ArrayList<>();
     public static final List<Pet> pets = new ArrayList<>();
+
+    public static final Counter counter = new Counter();
 
     public static Animal createAnimal() {
         Scanner scan = new Scanner(System.in);
@@ -85,6 +88,8 @@ public class Main {
         pets.get(0).setResidence(residences.get(1));
 
         residences.get(1).setWhereLiving(houseWeMovingTo);
+
+        System.out.println(counter.sizeOf(Collections.singletonList(pets)));
 
         getInfoAboutAllPets();
     }
