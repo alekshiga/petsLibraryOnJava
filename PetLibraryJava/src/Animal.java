@@ -1,4 +1,4 @@
-public abstract class Animal {
+public abstract class Animal implements Cloneable {
     protected String name;
     protected String kind;
     protected String sex;
@@ -9,6 +9,11 @@ public abstract class Animal {
         this.age = age;
         this.kind = kind;
         this.sex = sex;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public String sleep() {
@@ -80,6 +85,12 @@ public abstract class Animal {
                     "sex: " + sex + ", " +
                     "age: " + age + '}';
         }
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            Dog clonedDog = (Dog) super.clone();
+            clonedDog.setName(new String(getName()));
+            return clonedDog;
+        }
     }
 
     public static class Cat extends Animal {
@@ -110,6 +121,12 @@ public abstract class Animal {
                     "sex: " + sex + ", " +
                     "age: " + age + '}';
         }
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            Cat clonedCat = (Cat) super.clone();
+            clonedCat.setName(new String(getName()));
+            return clonedCat;
+        }
     }
 
     public static class Turtle extends Animal {
@@ -139,6 +156,13 @@ public abstract class Animal {
                     "name: " + name + ", " +
                     "sex: " + sex + ", " +
                     "age: " + age + '}';
+        }
+
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            Turtle clonedTurtle = (Turtle) super.clone();
+            clonedTurtle.setName(new String(getName()));
+            return clonedTurtle;
         }
     }
 }

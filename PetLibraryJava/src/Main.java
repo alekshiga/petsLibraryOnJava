@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class Main {
 
-
-
     public static final List<Animal> animals = new ArrayList<>();
     public static final List<House> houses = new ArrayList<>();
     public static final List<Owner> owners = new ArrayList<>();
@@ -75,6 +73,7 @@ public class Main {
             System.out.println("Сначала добавьте людей в список хозяев");
         }
 
+        System.out.println(ToStringChecker.toStringSupported(cat));
         animals.add(cat);
         houses.add(flat);
         owners.add(owner);
@@ -101,5 +100,34 @@ public class Main {
         System.out.println(pets.get(1).getAnimal().sound());
         owners.get(0).goToShelter();
         owners.get(1).petAnimal();
+
+        System.out.println();
+
+        Animal.Dog originalDog = new Animal.Dog("Rex", "male", 3);
+
+        try {
+            Animal.Dog clonedDog = (Animal.Dog) originalDog.clone();
+
+            System.out.println("Original dog: " + originalDog);
+            System.out.println("Cloned dog: " + clonedDog);
+
+            clonedDog.setName("Max");
+
+            System.out.println("Original dog after cloning: " + originalDog);
+            System.out.println("Cloned dog after changing its name: " + clonedDog);
+
+            Animal.Dog shallowClonedDog = originalDog;
+
+            System.out.println("Original dog: " + originalDog);
+            System.out.println("Shallow cloned dog: " + shallowClonedDog);
+
+            shallowClonedDog.setName("Milo");
+
+            System.out.println("Original dog after shallow cloning: " + originalDog);
+            System.out.println("Shallow cloned dog after changing its name: " + shallowClonedDog);
+        }
+        catch (CloneNotSupportedException e) {
+            System.out.println("Cloning not supported: " + e.getMessage());
+        }
     }
 }
